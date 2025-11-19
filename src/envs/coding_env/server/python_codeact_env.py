@@ -114,7 +114,7 @@ class PythonCodeActEnv(Environment):
         # Check if test_code is provided - if not, return reward 0
         if not action.test_code or action.test_code.strip() == "":
             # Execute only the code without tests
-            result = self._executor.run(action.code, timeout_s=timeout_s)
+            result = self._executor.run(action.code)
 
             # Check if code compiles
             code_compiles = result.exit_code == 0
@@ -150,7 +150,7 @@ class PythonCodeActEnv(Environment):
         test_script = self._build_test_script(action.code, action.test_code)
 
         # Execute the test script
-        result = self._executor.run(test_script, timeout_s=timeout_s)
+        result = self._executor.run(test_script)
 
         # Parse test results from structured output
         tests_passed, tests_failed = self._parse_test_results(

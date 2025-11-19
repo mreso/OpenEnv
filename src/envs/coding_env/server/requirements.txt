@@ -1,2 +1,3 @@
 smolagents
 numpy
+pandas

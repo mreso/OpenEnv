@@ -47,6 +47,7 @@ class HTTPEnvClient(ABC, Generic[ActT, ObsT]):
         image: str,
         provider: Optional["ContainerProvider"] = None,
         wait_timeout: float = 30.0,
+        request_timeout_s: float = 15.0,  # Add explicit parameter
         **kwargs: Any,
     ) -> EnvClientT:
         """
@@ -118,8 +119,8 @@ class HTTPEnvClient(ABC, Generic[ActT, ObsT]):
             provider.stop_container()
             raise
 
-        # 3. Create and return client instance with provider reference
-        return cls(base_url=base_url, provider=provider)
+        # 3. Create and return client instance with provider reference and timeout
+        return cls(base_url=base_url, provider=provider, request_timeout_s=request_timeout_s)
 
     @classmethod
     def from_hub(
